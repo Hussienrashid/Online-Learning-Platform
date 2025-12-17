@@ -1,0 +1,15 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+.vs/
+*.user
+*.suo
+
+# ASP.NET secrets
+appsettings.json
+appsettings.Development.json
+
+# EF Core
+Migrations/*Designer.cs

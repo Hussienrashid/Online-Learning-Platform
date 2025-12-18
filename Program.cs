@@ -1,10 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using HW.Data;  
+using HW.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-// ADD SERVICES FIRST
+
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
@@ -12,10 +15,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 var app = builder.Build();
-// CONFIGURE PIPELINE
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

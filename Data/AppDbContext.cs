@@ -1,4 +1,5 @@
 ﻿using HW.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HW.Data
@@ -7,7 +8,7 @@ namespace HW.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
-
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
         public DbSet<User> Users { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
@@ -34,6 +35,9 @@ namespace HW.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<RefreshToken>()
+                .HasIndex(x => x.Token)
+                .IsUnique();
         }
     }
 }
